@@ -1,70 +1,78 @@
+#define pp pair<int, int>
+#define ll long long
+#include <bits/stdc++.h>
+using namespace std;
 
-ll prims(int src, int n)
-{
-    priority_queue<pp, vector<pp>, greater<pp>> pq;
-    unordered_set<int> s; // visited
-    vector<int> parent(n+1);
-    unordered_map<int, int> mp;
-    for (int i = 1; i <= n; i++)
-    {
+vector<list<pp>> graph;
+
+// Function to add an undirected edge with weight to the graph
+void add_edge(int src, int des, int weight) {
+    graph[src].push_back({weight, des});
+    graph[des].push_back({weight, src});
+}
+
+// Function to perform Prim's algorithm and return the total weight of the minimum spanning tree
+ll prims(int src, int n) {
+    priority_queue<pp, vector<pp>, greater<pp>> pq;  // Min heap priority queue of pairs
+    unordered_map<int, int> mp;  // Map to store minimum weight for each node
+    unordered_set<int> vis;  // Set to keep track of visited nodes
+    vector<int> par(n + 1);  // Parent array to store the parent of each node in the MST
+    
+    // Initializing minimum weights to infinity
+    for (int i = 1; i <= n; i++) {
         mp[i] = INT_MAX;
     }
+
+    // Pushing the source node with weight 0 to start the algorithm
     pq.push({0, src});
-    mp[src] =0;
-    int total_count = 0;
-    int result = 0;
-    while (total_count < n  and !pq.empty())
-    {    pp curr = pq.top();
-        if (s.count(curr.second))
-        {
+    mp[src] = -1;  // Marking the source node as visited with weight -1
+
+    int total_node = 0, ans = 0;
+
+    // Main loop of Prim's algorithm
+    while (!pq.empty() && total_node < n) {
+        pp curr = pq.top();  // Extracting the minimum-weight node from the priority queue
+        if (vis.count(curr.second)) {
             pq.pop();
             continue;
         }
-        s.insert(curr.second);
-        total_count++;
-        result += curr.first;
+        vis.insert(curr.second);  // Marking the current node as visited
+        ans += curr.first;  // Adding the weight to the total MST weight
+        total_node++;
+
         pq.pop();
-        for (auto neighbour : grph[curr.second])
-        {
-            if (!s.count(neighbour.first) and mp[neighbour.first] > neighbour.second)
-            {
-                pq.push({neighbour.second, neighbour.first});
-                parent[neighbour.first] = curr.second;
-                mp[neighbour.first] = neighbour.second;
+
+        // Iterating through neighbors of the current node
+        for (auto neigh : graph[curr.second]) {
+            if (!vis.count(neigh.second) && mp[neigh.second] > neigh.first) {
+                pq.push({neigh.first, neigh.second});  // Adding neighbors to the priority queue
+                par[neigh.second] = curr.second;  // Updating parent information
+                mp[neigh.second] = neigh.first;  // Updating minimum weight for the node
             }
         }
     }
-    return result;
+
+    return ans;  // Returning the total weight of the minimum spanning tree
 }
-// function prims(src, numberOfNodes):
-//     priorityQueue pq
-//     visitedSet visited
-//     parentArray parent
-//     distanceMap distance
 
-//     for node in 1 to numberOfNodes:
-//         distance[node] = INFINITY
-//     distance[src] = 0
+int main() {
+    int n, m;
+    cin >> n >> m;
 
-//     pq.push({0, src})
-    
-//     totalNodes = 0
-//     totalCost = 0
+    graph.resize(n + 1, list<pp>());
 
-//     while totalNodes < numberOfNodes and not pq.isEmpty():
-//         currentNode = pq.pop()
+    // Reading edges and weights
+    for (int i = 0; i < m; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        add_edge(u, v, w);
+    }
 
-//         if visited.contains(currentNode):
-//             continue
+    int start;
+    cin >> start;
 
-//         visited.insert(currentNode)
-//         totalNodes += 1
-//         totalCost += currentNode.cost
+    // Calling the Prim's algorithm function and printing the result
+    cout << prims(start, n);
 
-//         for neighbor in graph[currentNode.node]:
-//             if not visited.contains(neighbor.node) and distance[neighbor.node] > neighbor.cost:
-//                 pq.push({neighbor.cost, neighbor.node})
-//                 parent[neighbor.node] = currentNode.node
-//                 distance[neighbor.node] = neighbor.cost
-
-//     return totalCost
+    return 0;
+}
