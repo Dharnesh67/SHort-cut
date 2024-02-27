@@ -31,16 +31,17 @@ ll prims(int src, int n) {
 
     // Main loop of Prim's algorithm
     while (!pq.empty() && total_node < n) {
-        pp curr = pq.top();  // Extracting the minimum-weight node from the priority queue
+        pp curr = pq.top(); // Extracting the minimum-weight node from the priority queue      
+pq.pop();
+
         if (vis.count(curr.second)) {
-            pq.pop();
             continue;
         }
         vis.insert(curr.second);  // Marking the current node as visited
         ans += curr.first;  // Adding the weight to the total MST weight
         total_node++;
 
-        pq.pop();
+
 
         // Iterating through neighbors of the current node
         for (auto neigh : graph[curr.second]) {
