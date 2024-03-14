@@ -1,4 +1,4 @@
-class Solution {
+class Solution {  // 560 ,930
 public:
     int numSubarraysWithSum(vector<int>& nums, int k) {
         vector<int> pre(nums.size(), 0);
