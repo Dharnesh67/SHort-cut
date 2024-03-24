@@ -3,6 +3,20 @@
         cout.tie(0);
 
 ios_base::sync_with_stdio(false); cin.tie(NULL);
+
+
+
+#define faster                 \
+  ios::sync_with_stdio(false); \
+  cin.tie(nullptr);            \
+  cout.tie(nullptr);
+
+// write faster in code
+
+
+
+
+
 // The lines you provided are used in C++ code and are related to input and output stream synchronization.
 
 // 1. `ios::sync_with_stdio(false);`: By default, C++ synchronizes the C++ standard streams (such as `cin` and `cout`) with the C standard I/O functions (such as `scanf` and `printf`). This synchronization can add some overhead, and in certain cases, you might want to disable it for better performance. Setting `ios::sync_with_stdio(false);` turns off the synchronization.
