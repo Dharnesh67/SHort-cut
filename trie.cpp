@@ -18,7 +18,7 @@ struct trie {
     char data;
     bool isend;
     unordered_map<char, trie*> children;
-    trie(int data){
+    trie(char data){
         this->data=data;
     }
 };
