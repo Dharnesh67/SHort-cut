@@ -12,5 +12,7 @@ int gcd(int num1, int num2)
 
 int main()
 {
-    cout << gcd(4,12);
+    int x=gcd(4,12);
+    int lcm=(4*12)/x;
+    cout<<lcm;
 }
