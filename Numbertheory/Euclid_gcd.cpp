@@ -12,5 +12,5 @@ int gcd(int num1, int num2)
 
 int main()
 {
-    cout << gcd(12, 4);
+    cout << gcd(4,12);
 }
