@@ -1,4 +1,4 @@
-oid permutations(vector<vector<int>> &res, vector<int> nums, int l, int h)   // leetcode 46 permutations
+void permutations(vector<vector<int>> &res, vector<int> nums, int l, int h)   // leetcode 46 permutations
 {
     if (l == h)
     {
