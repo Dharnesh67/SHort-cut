@@ -1,15 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int gcd(int num1,int num2) //num1<num2 always
+int gcd(int num1, int num2)
 {
-    int rem=num2%num1;
-    if(rem==0){
+    if (num2 == 0)
+    {
         return num1;
     }
-    return gcd(rem,num1);
+    return gcd(num2, num1 % num2);
 }
+
 int main()
 {
-    cout<<gcd(12,30);
+    cout << gcd(12, 4);
 }
