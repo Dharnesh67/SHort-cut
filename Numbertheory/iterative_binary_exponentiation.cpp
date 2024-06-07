@@ -1,21 +1,21 @@
 #include <bits/stdc++.h> // Includes all standard libraries
 using namespace std;
+const int m = 1e9 + 7;
 
 int main()
-{ // TC : LOG(b)
+{
     int a, b; // Declare variables a and b
     cin >> a >> b; // Input values for a and b from the user
 
-    cout<<pow(a,b)<<" ";
-    int ans = 1; // Initialize the answer to 1
+    long long ans = 1; // Initialize the answer to 1
     while (b > 0) // Loop until b becomes 0
     {
         if (b & 1) // If b is odd
         {
-            ans = ans * a; // Multiply ans by a
+            ans = ((ans % m) *1LL* (a % m)) % m; // Multiply ans by a modulo m
         }
-        a = a * a; // Square the value of a
-        b = b >> 1; // Right shift b by 1 (equivalent to dividing by 2)
+        a = (a *1LL* a) % m; // Square the value of a modulo m
+        b  >>= 1; // Right shift b by 1 (equivalent to dividing by 2)
     }
-    cout << ans<<" "; // Output the final answer
+    cout << ans << " "; // Output the final answer
 }
