@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string f(int n) {
+        string a="";
+        while (n > 0) {
+            a+=to_string(n % 2);
+            n = n / 2;
+        }
+        reverse(begin(a),end(a));
+        return a;
+    }
+    int findComplement(int num) {
+        string s=f(num);
+        for(int i =0;i<s.length();i++){
+            s[i]=(s[i]=='1')?'0':'1';
+        }
+        long long x =0;
+        long long ans=0;
+        for(int i =s.length()-1;i>=0;i--){
+           ans+=((s[i]-'0')*pow(2,x));
+           x++;
+        }
+        return ans;
+    }
+};
